@@ -35,30 +35,12 @@ const addUser = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = await User.create({ name, email, password: hashedPassword });
     res.status(201).json(user);
+    console.log();("This is a api for add user api")
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
 
-const updateUser = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const { name, email } = req.body;
-    const user = await User.update({ name, email }, { where: { id } });
-    res.json({ message: 'User updated successfully' });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-};
 
-const deleteUser = async (req, res) => {
-  try {
-    const { id } = req.params;
-    await User.destroy({ where: { id } });
-    res.json({ message: 'User deleted successfully' });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-};
 
-module.exports = { register, login, addUser, updateUser, deleteUser };
+module.exports = { register, login, addUser };
